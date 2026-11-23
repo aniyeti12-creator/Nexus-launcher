@@ -1,0 +1,48 @@
+/* Nexus Launcher — Tokens de identidad visual (Cyber-Neon Oscuro + Sólido) */
+
+:root {
+  /* Superficies y fondos */
+  --bg-app: #090b10;
+  --bg-surface: #10141d;
+  --bg-surface-elevated: #161b27;
+  --bg-hover: #1d2434;
+
+  /* Acentos principales */
+  --accent-cyan: #00f0ff;
+  --accent-cyan-muted: rgba(0, 240, 255, 0.14);
+  --accent-violet: #7c3aed;
+  --accent-violet-muted: rgba(124, 58, 237, 0.16);
+
+  /* Estados semánticos */
+  --status-success: #10b981;
+  --status-warning: #f59e0b;
+  --status-danger: #ef4444;
+
+  /* Tipografía */
+  --font-display: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --text-primary: #f3f6fc;
+  --text-secondary: #9aa5b8;
+  --text-muted: #687387;
+
+  /* Bordes, radios y sombras sólidas */
+  --border-subtle: #1f2738;
+  --border-strong: #2d3850;
+  --border-accent: #00f0ff;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-glow-cyan: 0 0 0 1px rgba(0, 240, 255, 0.25), 0 8px 20px rgba(0, 240, 255, 0.08);
+
+  /* Layout y tiempos */
+  --sidebar-width: 240px;
+  --header-height: 64px;
+  --transition-fast: 150ms ease;
+  --transition-base: 220ms ease;
+}
