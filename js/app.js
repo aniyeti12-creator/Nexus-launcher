@@ -1,1 +1,5 @@
-console.log("Nexus Launcher — Identidad visual inicializada.");
+import { initRouter } from "./router.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  initRouter();
+});
