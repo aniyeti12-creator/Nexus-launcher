@@ -52,3 +52,10 @@ export function filterGames(games = GAMES, { query = "", onlyFavorites = false }
     );
   });
 }
+export function toggleFavorite(gameId, games = GAMES) {
+  const target = games.find((game) => game.id === gameId);
+  if (target) {
+    target.favorite = !target.favorite;
+  }
+  return target;
+}
