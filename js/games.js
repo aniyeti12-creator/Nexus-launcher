@@ -78,11 +78,16 @@ export function getFeaturedGame(games = GAMES) {
   return games.find((game) => game.featured) || games[0];
 }
 
-export function filterGames(games = GAMES, { query = "", onlyFavorites = false } = {}) {
+export function getAvailableGenres(games = GAMES) {
+  return Array.from(new Set(games.map((game) => game.genre)));
+}
+
+export function filterGames(games = GAMES, { query = "", onlyFavorites = false, genre = "all" } = {}) {
   const normalized = query.trim().toLowerCase();
 
   return games.filter((game) => {
     if (onlyFavorites && !game.favorite) return false;
+    if (genre && genre !== "all" && game.genre !== genre) return false;
     if (!normalized) return true;
 
     return (
@@ -91,6 +96,20 @@ export function filterGames(games = GAMES, { query = "", onlyFavorites = false }
       game.summary.toLowerCase().includes(normalized)
     );
   });
+}
+
+export function sortGames(games, sortBy = "default") {
+  const copy = [...games];
+  if (sortBy === "title-asc") {
+    return copy.sort((a, b) => a.title.localeCompare(b.title, "es"));
+  }
+  if (sortBy === "title-desc") {
+    return copy.sort((a, b) => b.title.localeCompare(a.title, "es"));
+  }
+  if (sortBy === "favorites-first") {
+    return copy.sort((a, b) => Number(b.favorite) - Number(a.favorite));
+  }
+  return copy;
 }
 
 export function toggleFavorite(gameId, games = GAMES) {
