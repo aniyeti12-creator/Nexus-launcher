@@ -1,4 +1,6 @@
-export const GAMES = [
+const STORAGE_KEY = "nexus_launcher_favorites_v1";
+
+const DEFAULT_GAMES = [
   {
     id: "cyber-drift",
     title: "Cyber Drift 2099",
@@ -31,8 +33,46 @@ export const GAMES = [
     favorite: false,
     url: "#neon-breaker",
     summary: "Rompe bloques energéticos con potenciadores en cadena y ritmo electrónico."
+  },
+  {
+    id: "orbital-pulse",
+    title: "Orbital Pulse",
+    genre: "Ritmo · Arcade",
+    tag: "WEB AUDIO · 60 FPS",
+    theme: "cyan",
+    featured: false,
+    favorite: false,
+    url: "#orbital-pulse",
+    summary: "Sincroniza esquivas y disparos al compás de sintetizadores en órbita baja."
   }
 ];
+
+function loadSavedFavorites() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? new Set(parsed) : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveFavorites(games) {
+  try {
+    const favoriteIds = games.filter((game) => game.favorite).map((game) => game.id);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(favoriteIds));
+  } catch {
+    // Ignorar errores de almacenamiento si el navegador restringe localStorage
+  }
+}
+
+const savedFavorites = loadSavedFavorites();
+
+export const GAMES = DEFAULT_GAMES.map((game) => ({
+  ...game,
+  favorite: savedFavorites ? savedFavorites.has(game.id) : game.favorite
+}));
 
 export function getFeaturedGame(games = GAMES) {
   return games.find((game) => game.featured) || games[0];
@@ -52,10 +92,12 @@ export function filterGames(games = GAMES, { query = "", onlyFavorites = false }
     );
   });
 }
+
 export function toggleFavorite(gameId, games = GAMES) {
   const target = games.find((game) => game.id === gameId);
   if (target) {
     target.favorite = !target.favorite;
+    saveFavorites(games);
   }
   return target;
 }
