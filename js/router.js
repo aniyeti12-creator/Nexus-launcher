@@ -1,4 +1,5 @@
 import { GAMES, getFeaturedGame, filterGames, toggleFavorite } from "./games.js";
+import { renderProfileView } from "./profile.js";
 
 function createGameCardHTML(game) {
   return `
@@ -176,15 +177,7 @@ export function initRouter() {
 
     if (sectionKey === "perfil") {
       titleEl.textContent = "Perfil";
-      contentEl.innerHTML = `
-        <section class="panel">
-          <span class="panel-badge">Jugador · Nexus ID</span>
-          <h2 class="panel-heading">Perfil del jugador</h2>
-          <p class="panel-copy">
-            Aquí configuraremos tu avatar, nombre de usuario, biografía y estadísticas en la siguiente fase.
-          </p>
-        </section>
-      `;
+      renderProfileView(contentEl);
       return;
     }
 
