@@ -1,4 +1,4 @@
-import { GAMES, getFeaturedGame, filterGames, toggleFavorite } from "./games.js";
+import { GAMES, getFeaturedGame, getAvailableGenres, filterGames, sortGames, toggleFavorite } from "./games.js";
 import { renderProfileView } from "./profile.js";
 
 function createGameCardHTML(game) {
@@ -72,32 +72,50 @@ function openGameModal(game) {
 }
 
 function renderCatalogView(contentEl, { heading, onlyFavorites = false, onRefresh }) {
+  const genres = getAvailableGenres(GAMES);
+
   contentEl.innerHTML = `
     <div class="catalog-toolbar">
       <div>
         <h2 class="section-heading">${heading}</h2>
         <span id="catalog-count" class="section-count"></span>
       </div>
-      <input
-        id="game-search"
-        type="search"
-        class="search-input"
-        placeholder="Buscar por nombre o género..."
-        aria-label="Buscar juegos"
-      />
+      <div class="catalog-controls">
+        <input
+          id="game-search"
+          type="search"
+          class="search-input"
+          placeholder="Buscar por nombre o género..."
+          aria-label="Buscar juegos"
+        />
+        <select id="genre-filter" class="filter-select" aria-label="Filtrar por género">
+          <option value="all">Todos los géneros</option>
+          ${genres.map((g) => `<option value="${g}">${g}</option>`).join("")}
+        </select>
+        <select id="sort-filter" class="filter-select" aria-label="Ordenar juegos">
+          <option value="default">Orden por defecto</option>
+          <option value="favorites-first">Favoritos primero</option>
+          <option value="title-asc">Nombre (A–Z)</option>
+          <option value="title-desc">Nombre (Z–A)</option>
+        </select>
+      </div>
     </div>
     <div id="catalog-grid"></div>
   `;
 
   const searchInput = document.getElementById("game-search");
+  const genreSelect = document.getElementById("genre-filter");
+  const sortSelect = document.getElementById("sort-filter");
   const countEl = document.getElementById("catalog-count");
   const gridEl = document.getElementById("catalog-grid");
 
   function updateList() {
-    const matches = filterGames(GAMES, {
+    const filtered = filterGames(GAMES, {
       query: searchInput ? searchInput.value : "",
-      onlyFavorites
+      onlyFavorites,
+      genre: genreSelect ? genreSelect.value : "all"
     });
+    const matches = sortGames(filtered, sortSelect ? sortSelect.value : "default");
 
     countEl.textContent = `${matches.length} ${matches.length === 1 ? "juego" : "juegos"}`;
 
@@ -118,6 +136,8 @@ function renderCatalogView(contentEl, { heading, onlyFavorites = false, onRefres
   }
 
   searchInput.addEventListener("input", updateList);
+  genreSelect.addEventListener("change", updateList);
+  sortSelect.addEventListener("change", updateList);
 
   gridEl.addEventListener("click", (event) => {
     const btn = event.target.closest("button[data-action]");
