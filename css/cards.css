@@ -452,7 +452,30 @@
   flex-wrap: wrap;
   margin-top: 0.25rem;
 }
+/* Filtros y ordenación del catálogo */
+.catalog-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
 
+.filter-select {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 0.58rem 0.8rem;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.filter-select:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: var(--shadow-glow-cyan);
+}
 .profile-feedback {
   font-size: 0.86rem;
   color: var(--status-success);
