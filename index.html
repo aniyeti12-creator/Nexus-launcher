@@ -12,96 +12,53 @@
   />
   <link rel="stylesheet" href="./css/variables.css" />
   <link rel="stylesheet" href="./css/main.css" />
-  <style>
-    .preview-wrapper {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 1.5rem;
-    }
-
-    .preview-card {
-      width: 100%;
-      max-width: 660px;
-      background-color: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 2rem;
-      box-shadow: var(--shadow-card);
-    }
-
-    .preview-tag {
-      display: inline-block;
-      background-color: var(--accent-cyan-muted);
-      color: var(--accent-cyan);
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 0.25rem 0.75rem;
-      border-radius: var(--radius-pill);
-      margin-bottom: 1rem;
-    }
-
-    .preview-title {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .preview-desc {
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-    }
-
-    .preview-actions {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background-color: var(--accent-cyan);
-      color: #06080c;
-      border: none;
-      border-radius: var(--radius-md);
-      padding: 0.65rem 1.2rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform var(--transition-fast), opacity var(--transition-fast);
-    }
-
-    .btn-primary:hover {
-      opacity: 0.92;
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background-color: var(--bg-surface-elevated);
-      color: var(--text-primary);
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-md);
-      padding: 0.65rem 1.2rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color var(--transition-fast);
-    }
-
-    .btn-secondary:hover {
-      background-color: var(--bg-hover);
-    }
-  </style>
 </head>
 <body>
-  <div id="app" class="preview-wrapper">
-    <section class="preview-card">
-      <span class="preview-tag">Fase 1 · Paso 4 completado</span>
-      <h1 class="preview-title">NEXUS LAUNCHER</h1>
-      <p class="preview-desc">
-        Identidad visual Cyber-Neon Oscuro con paneles sólidos, tipografía Space Grotesk + Inter y tokens CSS listos para la interfaz principal.
-      </p>
-      <div class="preview-actions">
-        <button type="button" class="btn-primary">Listo para Fase 2</button>
-        <button type="button" class="btn-secondary">Tokens cargados</button>
+  <div id="app" class="launcher-shell">
+    <aside class="sidebar" aria-label="Navegación principal">
+      <div class="sidebar-brand">
+        <span class="brand-mark">NL</span>
+        <span class="brand-name">NEXUS LAUNCHER</span>
       </div>
-    </section>
+
+      <nav class="sidebar-nav">
+        <button type="button" class="nav-item is-active" data-section="inicio">
+          <span>Inicio</span>
+        </button>
+        <button type="button" class="nav-item" data-section="biblioteca">
+          <span>Biblioteca</span>
+        </button>
+        <button type="button" class="nav-item" data-section="favoritos">
+          <span>Favoritos</span>
+        </button>
+        <button type="button" class="nav-item" data-section="perfil">
+          <span>Perfil</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span class="status-pill">v0.2 · UI Base</span>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <h1 id="section-title" class="topbar-title">Inicio</h1>
+        <div class="topbar-meta">
+          <span class="meta-tag">Cyber-Neon · Sólido</span>
+        </div>
+      </header>
+
+      <main id="main-content" class="main-content">
+        <section class="panel">
+          <span class="panel-badge">Fase 2 · Paso 5</span>
+          <h2 class="panel-heading">Bienvenido a Nexus Launcher</h2>
+          <p class="panel-copy">
+            Estructura principal con barra lateral, cabecera superior y zona de trabajo lista para los siguientes pasos de navegación y biblioteca.
+          </p>
+        </section>
+      </main>
+    </div>
   </div>
 
   <script type="module" src="./js/app.js"></script>
